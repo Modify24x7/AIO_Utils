@@ -9,11 +9,17 @@ import java.io.InputStreamReader;
 
 class SUUtil {
 
+    private static boolean isSU = false;
+
     static boolean isSuAvailable() {
-        File file = new File("/data", ".modify24x7");
-        runSU("mkdir " + file.getAbsolutePath());
+        if (isSU){
+            return true;
+        }
+        File file = new File("/data/local/tmp", ".modify24x7");
+        runSU("mkdir -p " + file.getAbsolutePath());
         if (file.exists()) {
-            runSU("rm " + file.getAbsolutePath());
+            runSU("rm -R " + file.getAbsolutePath());
+            isSU = true;
             return true;
         } else {
             return false;
